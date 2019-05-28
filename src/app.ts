@@ -185,3 +185,33 @@ function getNameFromJSON(obj: string): any {
 }
 
 console.log(getNameFromJSON(serialized));
+
+// Interfaces -- Structure or shape of a object
+
+// Extend a base interface:
+interface Sizes {
+  sizes: string[];
+}
+
+interface Pizza extends Sizes {
+  name: string;
+  toppings?: number; // optional ? syntax
+  getAvailableSizes(): string[];
+  [key: number]: string;
+}
+
+let pissa: Pizza;
+
+function createPizza(name: string, sizes: string[]): Pizza {
+  return {
+    name,
+    sizes,
+
+    getAvailableSizes() {
+      return this.sizes;
+    }
+  };
+}
+
+pissa = createPizza('artichoke', ['small']);
+pissa.toppings = 1;
