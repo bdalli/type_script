@@ -200,7 +200,7 @@ interface Pizza extends Sizes {
   [key: number]: string;
 }
 
-let pissa: Pizza;
+/*let pissa: Pizza;
 
 function createPizza(name: string, sizes: string[]): Pizza {
   return {
@@ -208,10 +208,51 @@ function createPizza(name: string, sizes: string[]): Pizza {
     sizes,
 
     getAvailableSizes() {
-      return this.sizes;
-    }
-  };
+      //return this.sizes;
+    } 
+  }; 
 }
 
 pissa = createPizza('artichoke', ['small']);
 pissa.toppings = 1;
+pissa[1] = 'hnj'; // key = 1 : string
+*/
+// Classes
+
+// getters and setters
+class Sizes {
+  constructor(public sizes: string[]) {}
+
+  set availableSizes(sizes: string[]) {
+    this.sizes = sizes;
+  }
+  get availableSizes() {
+    return this.sizes;
+  }
+}
+
+const size = new Sizes(['large', 'small', 'micro']);
+//invoke getter
+console.log(size.availableSizes);
+
+//invoke setter
+size.availableSizes = ['micro-baby', 'pico'];
+console.log(size.availableSizes);
+
+class Bicycle {
+  // properties expected to bind
+  name: string;
+  colours: string[] = [];
+
+  constructor(name: string) {
+    this.name = name;
+  }
+  // methods
+  addColour(topping: string) {
+    this.colours.push(topping);
+  }
+}
+
+const new_bicycle = new Bicycle('Marin');
+new_bicycle.addColour('red');
+console.log(new_bicycle);
