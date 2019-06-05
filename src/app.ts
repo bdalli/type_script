@@ -219,8 +219,8 @@ pissa[1] = 'hnj'; // key = 1 : string
 */
 // Classes
 
-// getters and setters
-class Sizes {
+// getters and setters turn into a abstract class because we just want to extend with it rather than invoke it
+abstract class Sizes {
   constructor(public sizes: string[]) {}
 
   set availableSizes(sizes: string[]) {
@@ -231,28 +231,34 @@ class Sizes {
   }
 }
 
-const size = new Sizes(['large', 'small', 'micro']);
+//const size = new Sizes(['large', 'small', 'micro']);
+
+/* Commented because we dont really need this for inheritance
 //invoke getter
 console.log(size.availableSizes);
 
 //invoke setter
 size.availableSizes = ['micro-baby', 'pico'];
 console.log(size.availableSizes);
+*/
 
-class Bicycle {
+
+// For inheritance extend our pizza class with our sizes Class
+class Bicycle extends Sizes {
   // properties expected to bind
-  name: string;
+  
   colours: string[] = [];
 
-  constructor(name: string) {
-    this.name = name;
+  constructor(readonly name: string, public sizes: string[]) {
+    super(sizes)    // used with extends
   }
   // methods
-  addColour(topping: string) {
-    this.colours.push(topping);
+  addColour(colour: string) {
+    this.colours.push(colour);
   }
 }
 
-const new_bicycle = new Bicycle('Marin');
+const new_bicycle = new Bicycle('Marin', ['small', 'medium']);
 new_bicycle.addColour('red');
+console.log(new_bicycle.availableSizes)
 console.log(new_bicycle);
