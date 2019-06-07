@@ -189,7 +189,7 @@ console.log(getNameFromJSON(serialized));
 // Interfaces -- Structure or shape of a object
 
 // Extend a base interface:
-interface Sizes {
+/*interface Sizes {
   sizes: string[];
 }
 
@@ -200,7 +200,7 @@ interface Pizza extends Sizes {
   [key: number]: string;
 }
 
-/*let pissa: Pizza;
+let pissa: Pizza;
 
 function createPizza(name: string, sizes: string[]): Pizza {
   return {
@@ -219,9 +219,15 @@ pissa[1] = 'hnj'; // key = 1 : string
 */
 // Classes
 
+interface SizesInterface {  
+  availableSizes: string[]
+}
+
+
 // getters and setters turn into a abstract class because we just want to extend with it rather than invoke it
-abstract class Sizes {
-  constructor(public sizes: string[]) {}
+
+abstract class Sizes implements SizesInterface {  // inherit properties from a interface
+  constructor(protected sizes: string[]) {}
 
   set availableSizes(sizes: string[]) {
     this.sizes = sizes;
@@ -231,16 +237,13 @@ abstract class Sizes {
   }
 }
 
-//const size = new Sizes(['large', 'small', 'micro']);
 
-/* Commented because we dont really need this for inheritance
-//invoke getter
-console.log(size.availableSizes);
-
-//invoke setter
-size.availableSizes = ['micro-baby', 'pico'];
-console.log(size.availableSizes);
-*/
+interface BicycleInterface {
+  name: string;
+  colours: string[];
+  updateSizes(sizes: string[]): void; //return void/nothing
+  addColour(colour: string): void
+}
 
 
 // For inheritance extend our pizza class with our sizes Class
@@ -249,10 +252,13 @@ class Bicycle extends Sizes {
   
   colours: string[] = [];
 
-  constructor(readonly name: string, public sizes: string[]) {
+  constructor(readonly name: string, sizes: string[]) {
     super(sizes)    // used with extends
   }
   // methods
+  public updateSizes(sizes: string[]) {
+    this.sizes = sizes;
+  }
   addColour(colour: string) {
     this.colours.push(colour);
   }
@@ -261,4 +267,6 @@ class Bicycle extends Sizes {
 const new_bicycle = new Bicycle('Marin', ['small', 'medium']);
 new_bicycle.addColour('red');
 console.log(new_bicycle.availableSizes)
+new_bicycle.updateSizes(['large'])
 console.log(new_bicycle);
+console.log(new_bicycle.availableSizes)
